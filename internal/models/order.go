@@ -2,7 +2,8 @@ package models
 
 var (
 	OrderStatus = []string{"Order placed", "Preparing", "Baking", "Quality check", "Ready"}
-	PizzaTypes  = []string{
+
+	PizzaTypes = []string{
 		"Margherita",
 		"Pepperoni",
 		"Vegetarian",
@@ -13,5 +14,9 @@ var (
 		"Supreme",
 		"Truffle Mushroom",
 		"Four Cheese",
+	}
+
+	PizzaSizes = []string{
+		"Small", "Medium", "Large", "X-Large",
 	}
 )
