@@ -1,5 +1,12 @@
 package main
 
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+	"github.com/jupitters/go-pizza-tracker/internal/models"
+)
+
 type OrderFormData struct {
 	PizzaTypes []string
 	PizzaSizes []string
@@ -12,4 +19,11 @@ type OrderRequest struct {
 	Sizes        string `form:"size" binding:"required, min=1, dive, valid_pizza_size"`
 	Types        string `form:"type" binding:"required, min=1, dive, valid_pizza_type"`
 	Instructions string `form:"instructions" binding:"max=200"`
+}
+
+func (h *Handler) ServeNewOrderPost(c *gin.Context) {
+	c.HTML(http.StatusOK, "order.tmpl", OrderFormData{
+		PizzaTypes: models.PizzaTypes,
+		PizzaSizes: models.PizzaSizes,
+	})
 }
