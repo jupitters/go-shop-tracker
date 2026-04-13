@@ -3,8 +3,8 @@ package models
 import (
 	"time"
 
-	"github.com/jinzhu/gorm"
 	"github.com/teris-io/shortid"
+	"gorm.io/gorm"
 )
 
 var (

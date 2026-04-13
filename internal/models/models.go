@@ -3,8 +3,8 @@ package models
 import (
 	"fmt"
 
+	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
-	"modernc.org/sqlite"
 )
 
 type DBModel struct {
