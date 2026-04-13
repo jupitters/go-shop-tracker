@@ -58,10 +58,20 @@ func (o *Order) BeforeCreate(tx *gorm.DB) error {
 	return nil
 }
 
-func (o *OrderItem) BeforeCreate(tx *gorm.DB) error {
-	if o.ID == "" {
-		o.ID = shortid.MustGenerate()
+func (oi *OrderItem) BeforeCreate(tx *gorm.DB) error {
+	if oi.ID == "" {
+		oi.ID = shortid.MustGenerate()
 	}
 
 	return nil
+}
+
+func (o *OrderModel) CreateOrder(order *Order) error {
+	return o.DB.Create(order).Error
+}
+
+func (o *OrderModel) GetOrder(id string) (*Order, error) {
+	var order Order
+	err := o.DB.Preload("Items").First(&order, "id = ?", id).Error
+	return &order, err
 }
