@@ -31,7 +31,7 @@ func loadTemplates(router *gin.Engine) error {
 		"add": func(a, b int) int { return a + b },
 	}
 
-	tmpl, err := template.New("").Funcs(functions).ParseGlob("templates/*.tmpl")
+	tmpl, err := template.New("").Funcs(functions).ParseGlob("templates/*/*.tmpl")
 	if err != nil {
 		return err
 	}
