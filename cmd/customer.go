@@ -59,4 +59,8 @@ func (h *Handler) HandleNewOrderPost(c *gin.Context) {
 		c.String(http.StatusInternalServerError, "Something went wrong!")
 		return
 	}
+
+	slog.Info("Order created", "orderId", order.ID, "customer", order.CustomerName)
+
+	c.Redirect(http.StatusSeeOther, "/customer/"+order.ID)
 }
