@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log/slog"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -26,4 +27,36 @@ func (h *Handler) ServeNewOrderPost(c *gin.Context) {
 		PizzaTypes: models.PizzaTypes,
 		PizzaSizes: models.PizzaSizes,
 	})
+}
+
+func (h *Handler) HandleNewOrderPost(c *gin.Context) {
+	var form OrderRequest
+
+	if err := c.ShouldBind(&form); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	orderItems := make([]models.OrderItem, len(form.Sizes))
+	for i := range orderItems {
+		orderItems[i] = models.OrderItem{
+			Size:         form.Sizes[i],
+			Pizza:        form.PizzaTypes[i],
+			Instructions: form.Instructions[i],
+		}
+	}
+
+	order := models.Order{
+		CustomerName: form.Name,
+		Phone:        form.Phone,
+		Address:      form.Address,
+		Status:       models.OrderStatus[0],
+		Items:        orderItems,
+	}
+
+	if err := h.orders.CreateOrder(&order); err != nil {
+		slog.Error("Failed to create order", "error", err)
+		c.String(http.StatusInternalServerError, "Something went wrong!")
+		return
+	}
 }
