@@ -28,11 +28,11 @@ func getEnv(key, defaultValue string) string {
 
 func loadTemplates(router *gin.Engine) error {
 	functions := template.FuncMap{
-		"add": func(a, b int) int {return a + b}
+		"add": func(a, b int) int { return a + b },
 	}
 
 	tmpl, err := template.New("").Funcs(functions).ParseGlob("templates/*.tmpl")
-	if err != nil{
+	if err != nil {
 		return err
 	}
 	router.SetHTMLTemplate(tmpl)
