@@ -8,7 +8,7 @@ import (
 )
 
 type DBModel struct {
-	OrderModel
+	Order OrderModel
 }
 
 func InitDB(dataSourceName string) (*DBModel, error) {
@@ -18,4 +18,14 @@ func InitDB(dataSourceName string) (*DBModel, error) {
 		return nil, fmt.Errorf("Failed to migrate database: %v", err)
 	}
 
+	err = db.AutoMigrate(&Order{}, &OrderItem{})
+	if err != nil {
+		return nil, fmt.Errorf("Failed to migrate database: %v", err)
+	}
+
+	dbModel := &DBModel{
+		Order: OrderModel{DB: db},
+	}
+
+	return dbModel, nil
 }
