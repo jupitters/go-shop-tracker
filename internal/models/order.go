@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/jinzhu/gorm"
+	"github.com/teris-io/shortid"
 )
 
 var (
@@ -47,4 +48,12 @@ type OrderItem struct {
 	Size         string `gorm:"not null" json:"size"`
 	Pizza        string `gorm:"not null" json:"pizza"`
 	Instructions string `json:"instructions"`
+}
+
+func (o *Order) BeforeCreate(tx *gorm.DB) error {
+	if o.ID == "" {
+		o.ID = shortid.MustGenerate()
+	}
+
+	return nil
 }
