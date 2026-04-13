@@ -57,3 +57,11 @@ func (o *Order) BeforeCreate(tx *gorm.DB) error {
 
 	return nil
 }
+
+func (o *OrderItem) BeforeCreate(tx *gorm.DB) error {
+	if o.ID == "" {
+		o.ID = shortid.MustGenerate()
+	}
+
+	return nil
+}
