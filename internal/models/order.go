@@ -1,6 +1,10 @@
 package models
 
-import "github.com/jinzhu/gorm"
+import (
+	"time"
+
+	"github.com/jinzhu/gorm"
+)
 
 var (
 	OrderStatus = []string{"Order placed", "Preparing", "Baking", "Quality check", "Ready"}
@@ -28,6 +32,14 @@ type OrderModel struct {
 }
 
 type Order struct {
-	ID     string `gorm:"primaryKey;size:14" json:"id"`
-	Status string `gorm:"not null" json:"status"`
+	ID           string      `gorm:"primaryKey;size:14" json:"id"`
+	Status       string      `gorm:"not null" json:"status"`
+	CustomerName string      `gorm:"not null" json:"customer_name"`
+	Phone        string      `gorm:"not null" json:"phone"`
+	Address      string      `gorm:"not null" json:"address"`
+	Items        []OrderItem `gorm:"foreignKey:OrderID" json:"items"`
+	CreatedAt    time.Time   `json:"created_at`
+}
+
+type OrderItem struct {
 }
