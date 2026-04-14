@@ -68,4 +68,13 @@
         </div>
     </div>
 </template>
+<script>
+    let pizzaCount = 0;
+
+    function addPizza() {
+        const clone = document.getElementById("pizzaTemplate").content.cloneNode(true);
+        clone.querySelector(".pizza-number").textContent = ++pizzaCount;
+        document.getElementById("pizzas").appendChild(clone);
+    }
+</script>
 {{template "bottom" .}}
