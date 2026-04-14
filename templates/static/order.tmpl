@@ -77,7 +77,7 @@
         document.getElementById("pizzas").appendChild(clone);
     }
 
-    function removePizza() {
+    function removePizza(btn) {
         btn.closest(".pizza-item").remove();
         document.querySelectorAll(".pizza-item").forEach((item, index) => {
             item.querySelector(".pizza-number").textContent = index + 1;
