@@ -76,5 +76,14 @@
         clone.querySelector(".pizza-number").textContent = ++pizzaCount;
         document.getElementById("pizzas").appendChild(clone);
     }
+
+    function removePizza() {
+        btn.closest(".pizza-item").remove();
+        document.querySelectorAll(".pizza-item").forEach((item, index) => {
+            item.querySelector(".pizza-number").textContent = index + 1;
+        })
+
+        pizzaCount = document.querySelectorAll(".pizza-item").length;
+    }
 </script>
 {{template "bottom" .}}
