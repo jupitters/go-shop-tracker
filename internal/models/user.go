@@ -34,3 +34,13 @@ func (u *UserModel) AuthenticateUser(username, password string) (*User, error) {
 
 	return &user, nil
 }
+
+func (u *UserModel) GetUserByID(id string) (*User, error) {
+	user := User{}
+
+	if err := u.DB.First(&user, "id = ?", id).Error; err != nil {
+		return nil, err
+	}
+
+	return &user, nil
+}
