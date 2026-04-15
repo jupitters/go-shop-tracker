@@ -36,7 +36,7 @@ func loadTemplates(router *gin.Engine) error {
 		},
 	}
 
-	tmpl, err := template.New("").Funcs(functions).ParseGlob("templates/*/*.tmpl")
+	tmpl, err := template.New("").Funcs(functions).ParseGlob("templates/*.tmpl")
 	if err != nil {
 		return err
 	}
