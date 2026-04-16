@@ -9,6 +9,7 @@ import (
 
 type DBModel struct {
 	Order OrderModel
+	User  UserModel
 }
 
 func InitDB(dataSourceName string) (*DBModel, error) {
@@ -25,6 +26,7 @@ func InitDB(dataSourceName string) (*DBModel, error) {
 
 	dbModel := &DBModel{
 		Order: OrderModel{DB: db},
+		User:  UserModel{DB: db},
 	}
 
 	return dbModel, nil
