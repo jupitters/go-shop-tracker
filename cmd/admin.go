@@ -43,5 +43,10 @@ func (h *Handler) HandleLoginPost(c *gin.Context) {
 }
 
 func (h *Handler) HandleLogout(c *gin.Context) {
+	if err := ClearSession(c); err != nil {
+		c.String(http.StatusInternalServerError, err.Error())
+		return
+	}
 
+	c.Redirect(http.StatusSeeOther, "/login")
 }
