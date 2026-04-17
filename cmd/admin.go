@@ -41,3 +41,7 @@ func (h *Handler) HandleLoginPost(c *gin.Context) {
 
 	c.Redirect(http.StatusSeeOther, "/admin")
 }
+
+func (h *Handler) HandleLogout(c *gin.Context) {
+
+}
