@@ -50,3 +50,7 @@ func (h *Handler) HandleLogout(c *gin.Context) {
 
 	c.Redirect(http.StatusSeeOther, "/login")
 }
+
+func (h *Handler) ServeAdminDashboard(c *gin.Context) {
+
+}
