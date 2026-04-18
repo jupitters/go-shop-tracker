@@ -59,3 +59,7 @@ func setupSessionStore(db *gorm.DB, secretKey []byte) sessions.Store {
 
 	return store
 }
+
+func SetSessionValue(c *gin.Context, key string, value interface{}) error {
+
+}
