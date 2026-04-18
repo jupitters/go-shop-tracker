@@ -5,7 +5,10 @@ import (
 	"html/template"
 	"os"
 
+	"github.com/gin-contrib/sessions"
+	gormsessions "github.com/gin-contrib/sessions/gorm"
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 type Config struct {
@@ -42,4 +45,17 @@ func loadTemplates(router *gin.Engine) error {
 	}
 	router.SetHTMLTemplate(tmpl)
 	return nil
+}
+
+func setupSessionStore(db *gorm.DB, secretKey []byte) sessions.Store {
+	store := gormsessions.NewStore(db, true, secretKey)
+	store.Options(sessions.Options{
+		Path:     "/",
+		MaxAge:   86400,
+		HttpOnly: true,
+		Secure:   true,
+		SameSite: 3,
+	})
+
+	return store
 }
