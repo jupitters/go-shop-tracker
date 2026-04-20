@@ -65,3 +65,13 @@ func SetSessionValue(c *gin.Context, key string, value interface{}) error {
 	session.Set(key, value)
 	return session.Save()
 }
+
+func GetSessionString(c *gin.Context, key string) string {
+	session := sessions.Default(c)
+	val := session.Get(key)
+	if val == "" {
+		return ""
+	}
+	str, _ := val.(string)
+	return str
+}
