@@ -61,5 +61,7 @@ func setupSessionStore(db *gorm.DB, secretKey []byte) sessions.Store {
 }
 
 func SetSessionValue(c *gin.Context, key string, value interface{}) error {
-
+	session := sessions.Default(c)
+	session.Set(key, value)
+	return session.Save()
 }
