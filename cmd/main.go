@@ -32,6 +32,8 @@ func main() {
 		os.Exit(1)
 	}
 
+	sessionStore := setupSessionStore(dbModel.Order.DB)
+
 	setupRoutes(router, h)
 
 	slog.Info("Server starting", "url", "http://localhost:"+cfg.Port)
