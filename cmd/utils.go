@@ -12,14 +12,16 @@ import (
 )
 
 type Config struct {
-	Port   string
-	DBPath string
+	Port             string
+	DBPath           string
+	SessionSecretKey string
 }
 
 func loadConfig() Config {
 	return Config{
-		Port:   getEnv("PORT", "8080"),
-		DBPath: getEnv("DATABASE_URL", "./data/orders.db"),
+		Port:             getEnv("PORT", "8080"),
+		DBPath:           getEnv("DATABASE_URL", "./data/orders.db"),
+		SessionSecretKey: getEnv("SESSION_SECRET-kEY", "pizza-order-secret-key"),
 	}
 }
 
