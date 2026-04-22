@@ -75,3 +75,9 @@ func GetSessionString(c *gin.Context, key string) string {
 	str, _ := val.(string)
 	return str
 }
+
+func ClearSession(c *gin.Context) error {
+	session := sessions.Default(c)
+	session.Clear()
+	return session.Save()
+}
