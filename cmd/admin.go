@@ -65,7 +65,7 @@ func (h *Handler) ServeAdminDashboard(c *gin.Context) {
 
 	c.HTML(http.StatusOK, "admin.tmpl", AdminDashboardData{
 		Orders:   orders,
-		Statuses: models.OrderStatuses,
+		Statuses: models.OrderStatus,
 		Username: username,
 	})
 }
