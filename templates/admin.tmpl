@@ -1,17 +1,18 @@
 {{template "top" .}}
-    <title>Admin Dashboard - Pizza Tracker</title>
+<title>Admin Dashboard - Pizza Tracker</title>
 </head>
+
 <body class="bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 min-h-screen">
     <div class="container mx-auto px-4 md:py-12">
         <div class="max-w-[95%] mx-auto ">
             <div class="fle justify-between items-center mb-8">
-                
+
             </div>
         </div>
         <div class="flex justify-between items-center mb-8">
             <div>
                 <h1 class="text-4xl md:text-5xl fonr-bold text-gray-900 mb-2 tracking-tight">
-                Pizza Tracker Admin
+                    Pizza Tracker Admin
                 </h1>
                 <p class="text-gray-600 text-lg">Track and manage all your pizza orders.</p>
             </div>
@@ -20,15 +21,17 @@
                     Welcome, {{.Username}}
                 </span>
                 <form action="/logout" method="POST">
-                    <button type="submit" class="px-5 py-2.5 bg-red-500 text-white text-sm rounded-xl hover:bg-red-600 active:scale-95 transition-all shadow-sm">Logout</button>
+                    <button type="submit"
+                        class="px-5 py-2.5 bg-red-500 text-white text-sm rounded-xl hover:bg-red-600 active:scale-95 transition-all shadow-sm">Logout</button>
                 </form>
             </div>
         </div>
-        <div class="bg-white/80 backgrop-blur-sm rounded-3xl shadow-xl border border-white/20 overflow-hidden">
+        <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 overflow-hidden">
             <div class="p-6 md:p-8">
                 <div class="flex items-center mb-8">
                     <h2 class="text-2xl font-semibold text-gray-900 mr-2">Active Orders</h2>
-                    <button onclick="location.reload()" class="text-gray-500 hover:text-gray-700 transition-colors ml-2 p-1.5 rounded-lg hover:bg-gray-100">
+                    <button onclick="location.reload()"
+                        class="text-gray-500 hover:text-gray-700 transition-colors ml-2 p-1.5 rounded-lg hover:bg-gray-100">
                         <span class="text-xl">emoji circle return</span>
                     </button>
                 </div>
@@ -36,24 +39,40 @@
                     <table class="w-full">
                         <thead>
                             <tr class="bg-gray-50/80 border-b border-gray-200">
-                                <th class="px-6 py-4 text-left-text-xs font-semibold text-gray-600 uppercase tracking-wider">Order ID</th>
-                                <th class="px-6 py-4 text-left-text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
-                                <th class="px-6 py-4 text-left-text-xs font-semibold text-gray-600 uppercase tracking-wider">Name</th>
-                                <th class="px-6 py-4 text-left-text-xs font-semibold text-gray-600 uppercase tracking-wider">Phone</th>
-                                <th class="px-6 py-4 text-left-text-xs font-semibold text-gray-600 uppercase tracking-wider">Address</th>
-                                <th class="px-6 py-4 text-left-text-xs font-semibold text-gray-600 uppercase tracking-wider">Pizzas</th>
-                                <th class="px-6 py-4 text-left-text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+                                <th
+                                    class="px-6 py-4 text-left-text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Order ID</th>
+                                <th
+                                    class="px-6 py-4 text-left-text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Status</th>
+                                <th
+                                    class="px-6 py-4 text-left-text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Name</th>
+                                <th
+                                    class="px-6 py-4 text-left-text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Phone</th>
+                                <th
+                                    class="px-6 py-4 text-left-text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Address</th>
+                                <th
+                                    class="px-6 py-4 text-left-text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Pizzas</th>
+                                <th
+                                    class="px-6 py-4 text-left-text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Actions</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white/70 divide-y divide-gray-100">
                             {{range .Orders}}
                             <tr class="hover:bg-gray-50/50 transition-colors">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                    <a href="/customer/{{.ID}}" class="text-blue-600 hover:text-blue-700 font-mediuim hover:underline">
+                                    <a href="/customer/{{.ID}}"
+                                        class="text-blue-600 hover:text-blue-700 font-mediuim hover:underline">
                                         {{.ID}}
                                     </a>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-mediuim">{{.Status}}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-mediuim">{{.Status}}
+                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{.CustomerName}}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{.Phone}}</td>
                                 <td class="px-6 py-4 text-sm text-gray-700">
@@ -63,7 +82,8 @@
                                             <span class="text-gray-400">#{{add $index 1}}</span>
                                             <span class="truncate">{{$pizza.Size}} {{$pizza.Pizza}}</span>
                                             {{if $pizza.Instructions}}
-                                            <span class="size-4 text-gray-400 cursor-help" title="{{$pizza.Instructions}}">i</span>
+                                            <span class="size-4 text-gray-400 cursor-help"
+                                                title="{{$pizza.Instructions}}">i</span>
                                             {{end}}
                                         </div>
                                         {{end}}
@@ -72,15 +92,19 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                                     <div class="flex gap-2">
                                         <form action="/admin/order/{{.ID}}/update" method="POST">
-                                            <select name="status" class="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all bg-white font-medium">
+                                            <select name="status"
+                                                class="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all bg-white font-medium" onchange="this.form.submit()">
                                                 {{$currentStatus := .Status}}
                                                 {{range $.Statuses}}
-                                                <option {{if eq . $currentStatus}} selected {{end}} value="{{.}}">{{.}}</option>
+                                                <option {{if eq . $currentStatus}} selected {{end}} value="{{.}}">{{.}}
+                                                </option>
                                                 {{end}}
                                             </select>
                                         </form>
                                         <form action="/admin/order/{{.ID}}/delete" method="POST">
-                                            <button type="submit" class="p-2 text-white bg-red-500 rounded-lg hover:bg-red-600 active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-400 transition-all" onclick="return('Are you sure you want to delete this order?')">
+                                            <button type="submit"
+                                                class="p-2 text-white bg-red-500 rounded-lg hover:bg-red-600 active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-400 transition-all"
+                                                onclick="return('Are you sure you want to delete this order?')">
                                                 Delete
                                             </button>
                                         </form>
