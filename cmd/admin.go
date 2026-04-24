@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/jupitters/go-pizza-tracker/internal/models"
 )
 
 type LoginData struct {
@@ -12,6 +13,8 @@ type LoginData struct {
 }
 
 type AdminDashboardData struct {
+	Orders   []models.Order
+	Statuses []string
 	Username string
 }
 
@@ -53,9 +56,16 @@ func (h *Handler) HandleLogout(c *gin.Context) {
 }
 
 func (h *Handler) ServeAdminDashboard(c *gin.Context) {
+	orders, err := h.orders.GetAllOrders()
+	if err != nil {
+		c.String(http.StatusInternalServerError, err.Error())
+		return
+	}
 	username := GetSessionString(c, "username")
 
 	c.HTML(http.StatusOK, "admin.tmpl", AdminDashboardData{
+		Orders:   orders,
+		Statuses: models.OrderStatuses,
 		Username: username,
 	})
 }
