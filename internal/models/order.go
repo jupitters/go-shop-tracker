@@ -85,3 +85,7 @@ func (o *OrderModel) GetAllOrders() ([]Order, error) {
 func (o *OrderModel) UpdateOrderStatus(id string, status string) error {
 	return o.DB.Model(&Order{}).Where("id = ?", id).Update("status", status).Error
 }
+
+func (o *OrderModel) DeleteOrder(id string) error {
+	return o.DB.Select("Items").Delete(&Order{ID: id}).Error
+}
