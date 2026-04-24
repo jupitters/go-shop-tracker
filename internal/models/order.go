@@ -77,6 +77,7 @@ func (o *OrderModel) GetOrder(id string) (*Order, error) {
 }
 
 func (o *OrderModel) GetAllOrders() ([]Order, error) {
-	order := Order{}
-	err := o.DB.Preload("Items")
+	orders := []Order{}
+	err := o.DB.Preload("Items").Order("created_at desc").Find(&orders).Error
+	return orders, err
 }
