@@ -58,5 +58,17 @@ func (h *Handler) ServeAdminDashboard(c *gin.Context) {
 	c.HTML(http.StatusOK, "admin.tmpl", AdminDashboardData{
 		Username: username,
 	})
+}
+
+func (h *Handler) HandleOrderPut(c *gin.Context) {
+	orderID := c.Param("id")
+	newStatus := c.PostForm("status")
+
+	if err := h.orders.UpdateOrderStatus(orderID, newStatus); err != nil {
+		c.String(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.Redirect(http.StatusSeeOther, "/admin")
 
 }
