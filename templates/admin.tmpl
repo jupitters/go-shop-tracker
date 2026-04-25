@@ -121,4 +121,23 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const updateTime = () => `Last updated on: ${new Date().toLocaleString()}`
+            const lastFetched = document.getElementById("lastFetched");
+            const newOrdersBadge = document.getElementById("newOrdersBadge")
+
+            lastFetched.textContent = updateTime();
+
+            let newOrdersCount = 0;
+            const eventSrc = new EventSource("/admin/notifications");
+            eventSrc.onmessage = e => {
+                newOrdersCount++;
+                newOrdersBadge.textContent = `${newOrdersCount} new order${newOrdersCount === 1 ? '' : 's'}`;
+                newOrdersBadge.classList.remove("hidden");
+                lastFetched.textContent = updateTime; 
+            }
+            eventSrc.onerror = err => console.error("EventSource error: ", err);
+        })
+    </script>
 {{template "bottom" .}}
