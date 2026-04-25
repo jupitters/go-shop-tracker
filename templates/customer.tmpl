@@ -106,5 +106,9 @@
         }
 
         updateStatusBar("{{.Order.Status}}")
+
+        const eventSrc = new EventSource(`/notifications?orderId=${orderId}`)
+        eventSrc.onmessage = () => location.reload()
+        eventSrc.onerror = err => console.Error("EventSource failed: ", err)
     </script>
     {{template "bottom" .}}
