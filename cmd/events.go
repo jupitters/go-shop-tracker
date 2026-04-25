@@ -1,6 +1,10 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"log/slog"
+
+	"github.com/gin-gonic/gin"
+)
 
 func (h *Handler) NotificationHandler(c *gin.Context) {
 	orderID := c.Query("orderId")
@@ -17,4 +21,12 @@ func (h *Handler) NotificationHandler(c *gin.Context) {
 
 	key := "order:" + orderID
 	client := make(chan string, 10)
+	h.notificationManager.AddClient(key, client)
+
+	defer func() {
+		h.notificationManager.RemoveClient(key, client)
+		slog.Info("Customer client disconnected", "orderId", orderID)
+	}()
+
+	h.streamSSE(c, client)
 }
