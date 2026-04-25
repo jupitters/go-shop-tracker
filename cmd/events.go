@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io"
 	"log/slog"
 
 	"github.com/gin-gonic/gin"
@@ -29,4 +30,18 @@ func (h *Handler) NotificationHandler(c *gin.Context) {
 	}()
 
 	h.streamSSE(c, client)
+}
+
+func (h *Handler) streamSSE(c *gin.Context, client chan string) {
+	c.Header("Content-Type", "text/event-stream")
+	c.Header("Cache-Control", "no-cache")
+	c.Header("Connection", "keep-alive")
+
+	c.Stream(func(w io.Writer) bool {
+		if msg, ok := <-client; ok {
+			c.SSEvent("message", msg)
+			return true
+		}
+		return false
+	})
 }
