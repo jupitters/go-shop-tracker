@@ -40,7 +40,7 @@ func (n *NotificationManager) RemoveClient(key string, client chan string) {
 
 func (n *NotificationManager) Notify(key, message string) {
 	n.mu.RLock()
-	defer n.mu.Unlock()
+	defer n.mu.RUnlock()
 
 	for client := range n.clients[key] {
 		select {
