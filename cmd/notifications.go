@@ -23,3 +23,17 @@ func (n *NotificationManager) AddClient(key string, client chan string) {
 
 	n.clients[key][client] = true
 }
+
+func (n *NotificationManager) RemoveClient(key string, client chan string) {
+	n.mu.Lock()
+	defer n.mu.Unlock()
+
+	if clients := n.clients[key]; clients != nil {
+		delete(clients, client)
+		if len(clients) == 0 {
+			delete(n.clients, key)
+		}
+	}
+
+	close(client)
+}
