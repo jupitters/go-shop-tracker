@@ -32,6 +32,19 @@ func (h *Handler) NotificationHandler(c *gin.Context) {
 	h.streamSSE(c, client)
 }
 
+func (h *Handler) adminNotificationHandler(c *gin.Context) {
+	key := "admin:new_order"
+	client := make(chan string, 10)
+	h.notificationManager.AddClient(key, client)
+
+	defer func() {
+		h.notificationManager.RemoveClient(key, client)
+		slog.Info("Admin disconnected")
+	}()
+
+	h.streamSSE(c, client)
+}
+
 func (h *Handler) streamSSE(c *gin.Context, client chan string) {
 	c.Header("Content-Type", "text/event-stream")
 	c.Header("Cache-Control", "no-cache")
