@@ -37,3 +37,15 @@ func (n *NotificationManager) RemoveClient(key string, client chan string) {
 
 	close(client)
 }
+
+func (n *NotificationManager) Notify(key, message string) {
+	n.mu.RLock()
+	defer n.mu.Unlock()
+
+	for client := range n.clients[key] {
+		select {
+		case client <- message:
+		default:
+		}
+	}
+}
